@@ -24,7 +24,7 @@
       const inputDOM = document.getElementById('problems-input');
       const buttonDOM = document.getElementById('button');
       let problems = [];
-      const server = new WebSocket(`ws://${window.location.host}`);
+      const server = new WebSocket(`wss://${window.location.host}`);
       server.sendEvent =  (e) => server.send(JSON.stringify(e));
       server.onopen = () => {
         console.log('monitor: Server connected.')
