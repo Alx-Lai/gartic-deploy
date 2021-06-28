@@ -189,10 +189,7 @@ wss.on('connection', function connection(client) {
         // console.log(message);
         const problem = await ProblemModel.find({});
         const answers = problem.map(n=>n.answer);
-        let arr = [];
-        let len = answers.length;
-        let anss = []
-        client.sendEvent({type: 'GETPROBLEM',data:{answers: anss}})
+        client.sendEvent({type: 'GETPROBLEM',data:{answers}})
         break;
       }
       case "GUESS":{
