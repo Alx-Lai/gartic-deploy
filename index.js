@@ -6,7 +6,6 @@ const path = require('path');
 const uuid = require('uuid');
 
 const mongo = require('./mongo');
-const { finished } = require('stream');
 
 const app = express();
 
@@ -273,6 +272,7 @@ wss.on('connection', function connection(client) {
         
         //assign drawer
         let count = 0;
+        console.log(Rooms)
         let drawerNum = Rounds[client.roomNumber]%Rooms[client.roomNumber].users.length;
         let drawer = Rooms[client.roomNumber].users[drawerNum]
         Drawer[client.roomNumber] = drawer
@@ -404,7 +404,8 @@ wss.on('connection', function connection(client) {
             })
           })
         }
-        if(clientRooms[client.roomNumber].size == 1 && !(Rounds[client.roomNumber] == undefined || Rounds[client.roomNumber] == MAXROUND)){
+        if(clientRooms[client.roomNumber] !== undefined && clientRooms[client.roomNumber].size == 1 && !(Rounds[client.roomNumber] == undefined || Rounds[client.roomNumber] == MAXROUND)){
+          Rounds[client.roomNumber] = undefined;
           clientRooms[client.roomNumber].forEach((client)=>{
             client.sendEvent({
               type: 'KICK',
