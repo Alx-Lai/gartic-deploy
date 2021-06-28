@@ -446,6 +446,6 @@ wss.on('connection', function connection(client) {
 
 mongo.connect();
 
-server.listen(8080, () => {
-  console.log('Server listening at http://localhost:8080');
+server.listen(process.env.PORT || 8080, () => {
+  console.log(`Server listening at ${process.env.PORT || 8080}`);
 });
