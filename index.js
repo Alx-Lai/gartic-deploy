@@ -187,26 +187,11 @@ wss.on('connection', function connection(client) {
       }
       case "GETPROBLEM":{
         // console.log(message);
-        if(Answers[client.roomNumber]){
-          client.sendEvent({type: 'GETPROBLEM',data:{answers: Answers[client.roomNumber]}})
-          break;
-        }
         const problem = await ProblemModel.find({});
         const answers = problem.map(n=>n.answer);
         let arr = [];
         let len = answers.length;
         let anss = []
-        for(var i=0;i<10;i++){
-          let tmp = Math.floor(Math.random()*len)
-          while(arr.includes(tmp)){
-            tmp = Math.floor(Math.random()*len);
-          }
-          arr.push(tmp);
-        }
-        for(var i=0;i<10;i++){
-          anss.push(answers[arr[i]])
-        }
-        Answers[client.roomNumber] = anss;
         client.sendEvent({type: 'GETPROBLEM',data:{answers: anss}})
         break;
       }
